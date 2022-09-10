@@ -27,8 +27,6 @@ namespace MetaFrm.Management.Razor
         internal List<ColumnDefinitions>? ColumnDefinitionsAttribute;
 
         internal AssemblyModel SelectItem = new();
-
-        internal GroupWindowStatus GroupWindowStatus = GroupWindowStatus.Close;
         #endregion
 
 
@@ -81,9 +79,7 @@ namespace MetaFrm.Management.Razor
         #region IO
         private void New()
         {
-            if (this.SelectItem.ASSEMBLY_ID != null || this.GroupWindowStatus != GroupWindowStatus.Close)
-                this.SelectItem = new();
-            this.GroupWindowStatus = GroupWindowStatus.Maximize;
+            this.SelectItem = new();
         }
 
         private void OnSearch()
@@ -392,7 +388,6 @@ namespace MetaFrm.Management.Razor
                 if (response.Status == Status.OK)
                 {
                     this.New();
-                    this.Close();
                     this.ToastShow("Completed", $"{this.GetAttribute("Title")} deleted successfully.", Alert.ToastDuration.Long);
                 }
                 else
@@ -505,8 +500,6 @@ namespace MetaFrm.Management.Razor
             };
 
             this.SearchAttribute();
-
-            this.GroupWindowStatus = GroupWindowStatus.Maximize;
         }
 
         private void AddAttribute()
@@ -531,11 +524,6 @@ namespace MetaFrm.Management.Razor
                     item.ATTRIBUTE_ID = null;
                     item.ASSEMBLY_ID = null;
                 }
-        }
-
-        private void Close()
-        {
-            this.GroupWindowStatus = GroupWindowStatus.Close;
         }
         #endregion
     }
