@@ -42,7 +42,7 @@
             </FieldControl>
             <FieldControl Label="DLL">
                 <Control>
-                    <InputFile id="dll" class="form-control" placeholder="Namespace" OnChange="@this.InputFileChangeEventArgs" />
+                    <InputFile id="dll" class="form-control" placeholder="Namespace" accept=".dll" OnChange="@this.InputFileChangeEventArgs" />
                 </Control>
             </FieldControl>
 
@@ -57,7 +57,9 @@
 
             <DataGridControl TItem="AttributeModel" @ref="this.DataGridControlAttribute" Columns="this.ColumnDefinitionsAttribute" DataItems="this.SelectItem.Attributes" PagingSize="5"
                              RowAdd="this.AddAttribute"
-                             RowDelete="this.DeleteAttribute">
+                             RowDelete="this.DeleteAttribute"
+                             DataBsToggle=""
+                             DataBsTarget="">
             </DataGridControl>
 
             <CommandControl TItem="AssemblyModel" SelectItem="this.SelectItem" SelectItemKeyProperty="@(nameof(this.SelectItem.ASSEMBLY_ID))" SaveIsSubmit="true" New="this.New" Copy="this.Copy" Delete="this.Delete" />
