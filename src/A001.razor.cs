@@ -3,7 +3,6 @@ using MetaFrm.Extensions;
 using MetaFrm.Management.Razor.Models;
 using MetaFrm.Management.Razor.ViewModels;
 using MetaFrm.Razor.DataGrid;
-using MetaFrm.Razor.Group;
 using MetaFrm.Service;
 using MetaFrm.Web.Bootstrap;
 using Microsoft.AspNetCore.Components;
@@ -21,39 +20,14 @@ namespace MetaFrm.Management.Razor
         internal A001ViewModel A001ViewModel { get; set; } = Factory.CreateViewModel<A001ViewModel>();
 
         internal DataGridControl<AssemblyModel>? DataGridControl;
-        internal List<ColumnDefinitions>? ColumnDefinitions;
 
         internal DataGridControl<AttributeModel>? DataGridControlAttribute;
-        internal List<ColumnDefinitions>? ColumnDefinitionsAttribute;
 
         internal AssemblyModel SelectItem = new();
         #endregion
 
 
         #region Init
-        /// <summary>
-        /// OnInitialized
-        /// </summary>
-        protected override void OnInitialized()
-        {
-            if (this.ColumnDefinitions == null)
-            {
-                this.ColumnDefinitions = new();
-                this.ColumnDefinitions.AddRange(new ColumnDefinitions[] {
-                    new ColumnDefinitions{ DataField = nameof(AssemblyModel.NAMESPACE), Caption = "Namespace", DataType = DbType.NVarChar, Class = "text-break", SortDirection = SortDirection.Ascending },
-                    new ColumnDefinitions{ DataField = nameof(AssemblyModel.VERSION), Caption = "Version", DataType = DbType.NVarChar, Class = "text-break", SortDirection = SortDirection.Normal, Alignment = Alignment.Center },
-                    new ColumnDefinitions{ DataField = nameof(AssemblyModel.NICKNAME), Caption = "Owner", DataType = DbType.NVarChar, Class = "text-break", SortDirection = SortDirection.Normal }});
-            }
-
-            if (this.ColumnDefinitionsAttribute == null)
-            {
-                this.ColumnDefinitionsAttribute = new();
-                this.ColumnDefinitionsAttribute.AddRange(new ColumnDefinitions[] {
-                    new ColumnDefinitions{ DataField = nameof(AttributeModel.ATTRIBUTE_NAME), Caption = "Attr Name", DataType = DbType.NVarChar, SortDirection = SortDirection.NotSet, Editable = true },
-                    new ColumnDefinitions{ DataField = nameof(AttributeModel.ATTRIBUTE_VALUE), Caption = "Attr Value", DataType = DbType.NVarChar, SortDirection = SortDirection.NotSet, Editable = true }});
-            }
-        }
-
         /// <summary>
         /// OnAfterRenderAsync
         /// </summary>
@@ -153,9 +127,7 @@ namespace MetaFrm.Management.Razor
             finally
             {
                 this.A001ViewModel.IsBusy = false;
-#pragma warning disable CS4014 // 이 호출을 대기하지 않으므로 호출이 완료되기 전에 현재 메서드가 계속 실행됩니다.
                 this.SetSession(nameof(A001ViewModel), this.A001ViewModel);
-#pragma warning restore CS4014 // 이 호출을 대기하지 않으므로 호출이 완료되기 전에 현재 메서드가 계속 실행됩니다.
             }
         }
         private void SearchAttribute()
@@ -216,9 +188,7 @@ namespace MetaFrm.Management.Razor
             finally
             {
                 this.A001ViewModel.IsBusy = false;
-#pragma warning disable CS4014 // 이 호출을 대기하지 않으므로 호출이 완료되기 전에 현재 메서드가 계속 실행됩니다.
                 this.SetSession(nameof(A001ViewModel), this.A001ViewModel);
-#pragma warning restore CS4014 // 이 호출을 대기하지 않으므로 호출이 완료되기 전에 현재 메서드가 계속 실행됩니다.
             }
         }
 

@@ -1,4 +1,5 @@
 ﻿@using MetaFrm.Control
+@using MetaFrm.Database
 @using MetaFrm.Management.Razor.Models
 @using MetaFrm.Razor.Command
 @using MetaFrm.Razor.DataGrid
@@ -13,11 +14,18 @@
 
 <TitleControl Title="@this.GetAttribute("Description")"></TitleControl>
 
-<DataGridControl TItem="AssemblyModel" @ref="this.DataGridControl" Columns="this.ColumnDefinitions" DataItems="this.A001ViewModel.SelectResultModel" PagingEnabled="true"
+<DataGridControl TItem="AssemblyModel" @ref="this.DataGridControl" DataItems="this.A001ViewModel.SelectResultModel" PagingEnabled="true"
                  TableClass="table-hover"
                  RowAdd="this.New"
                  MovePage="this.Search"
-                 RowModify="this.RowModify">
+                 RowModify="this.RowModify"
+                 Columns="@(new ColumnDefinitions[] {
+                    new(DbType.Int, SortDirection.Normal, Alignment.Right, nameof(AssemblyModel.ASSEMBLY_ID), "Assembly ID"         , "d-none d-lg-table-cell"),
+                    new(DbType.NVarChar, SortDirection.Ascending, Alignment.NotSet, nameof(AssemblyModel.NAMESPACE), "Namespace"),
+                    new(DbType.DateTime, SortDirection.Normal, Alignment.Center, nameof(AssemblyModel.FILE_DATE), "File Date"       , "d-none d-md-table-cell", "", "", "yyyy-MM-dd HH:mm"),
+                    new(DbType.NVarChar, SortDirection.Normal, Alignment.Center, nameof(AssemblyModel.VERSION), "Version"),
+                    new(DbType.NVarChar, SortDirection.Normal, Alignment.Center, nameof(AssemblyModel.PLATFORM_DESC), "Platform"    , "d-none d-lg-table-cell"),
+                    new(DbType.NVarChar, SortDirection.Normal, Alignment.NotSet, nameof(AssemblyModel.NICKNAME), "Owner"            , "d-none d-sm-table-cell")})">
     <SearchInputControl>
         <input type="text" class="form-control rounded-start" placeholder="Search" @bind-value="@this.A001ViewModel.SearchModel.SEARCH_TEXT" @onkeyup="@SearchKeydown" />
     </SearchInputControl>
@@ -55,11 +63,14 @@
                 <FieldControl Label="Owner" CssClassDiv="py-2 col-md-6" Value="this.SelectItem.NICKNAME"></FieldControl>
             </div>
 
-            <DataGridControl TItem="AttributeModel" @ref="this.DataGridControlAttribute" Columns="this.ColumnDefinitionsAttribute" DataItems="this.SelectItem.Attributes" PagingSize="5"
+            <DataGridControl TItem="AttributeModel" @ref="this.DataGridControlAttribute" DataItems="this.SelectItem.Attributes" PagingSize="5"
                              RowAdd="this.AddAttribute"
                              RowDelete="this.DeleteAttribute"
                              DataBsToggle=""
-                             DataBsTarget="">
+                             DataBsTarget=""
+                             Columns="@(new ColumnDefinitions[] {
+                                new(DbType.NVarChar, nameof(AttributeModel.ATTRIBUTE_NAME), "Attr Name", true),
+                                new(DbType.NVarChar, nameof(AttributeModel.ATTRIBUTE_VALUE),"Attr Value", true)})">
             </DataGridControl>
 
             <CommandControl TItem="AssemblyModel" SelectItem="this.SelectItem" SelectItemKeyProperty="@(nameof(this.SelectItem.ASSEMBLY_ID))" SaveIsSubmit="true" New="this.New" Copy="this.Copy" Delete="this.Delete" />
