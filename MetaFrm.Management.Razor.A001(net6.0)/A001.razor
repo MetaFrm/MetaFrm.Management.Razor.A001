@@ -9,7 +9,6 @@
 <TitleControl Title="@this.GetAttribute("Description")"></TitleControl>
 
 <DataGridControl TItem="AssemblyModel" @ref="this.DataGridControl" DataItems="this.A001ViewModel.SelectResultModel" PagingEnabled="true"
-                 TableClass="table-hover"
                  RowAdd="this.New"
                  MovePage="this.Search"
                  RowModify="this.RowModify"
@@ -30,31 +29,32 @@
     </SearchButtonControl>
 </DataGridControl>
 
-<ModalControl TItem="AssemblyModel" SelectItem="this.SelectItem" SelectItemKeyProperty="@(nameof(this.SelectItem.ASSEMBLY_ID))">
+<ModalControl TItem="AssemblyModel" SelectItem="this.SelectItem" SelectItemKeyProperty="@(nameof(this.SelectItem.ASSEMBLY_ID))"
+              HeaderText="@(this.SelectItem == null || this.SelectItem.ASSEMBLY_ID == null ? "New" : "Edit")">
     <Control>
         <EditForm class="container" Model="@this.SelectItem" OnValidSubmit="this.Save">
             <DataAnnotationsValidator />
 
-            <FieldControl Label="Assembly ID" Value="this.SelectItem.ASSEMBLY_ID" CssClassDiv="pt-2 pb-1"></FieldControl>
-            <FieldControl Label="Namespace">
+            <FieldControl Label="Assembly ID" Value="this.SelectItem.ASSEMBLY_ID"></FieldControl>
+            <FieldControl Label="Namespace" CssClassAppend="py-2">
                 <Control>
                     <InputText id="namespace" class="form-control" placeholder="Namespace" @bind-Value="this.SelectItem.NAMESPACE" />
                     <ValidationMessage For="@(()=>this.SelectItem.NAMESPACE)" />
                 </Control>
             </FieldControl>
-            <FieldControl Label="DLL">
+            <FieldControl Label="DLL" CssClassAppend="py-2">
                 <Control>
                     <InputFile id="dll" class="form-control" placeholder="Namespace" accept=".dll" OnChange="@this.InputFileChangeEventArgs" />
                 </Control>
             </FieldControl>
 
             <div class="row">
-                <FieldControl Label="FileDate" CssClassDiv="py-2 col-md-6" Value="@($"{this.SelectItem.FILE_DATE:yyyy-MM-dd HH:mm}")"></FieldControl>
-                <FieldControl Label="Version" CssClassDiv="py-2 col-md-6" Value="this.SelectItem.VERSION"></FieldControl>
+                <FieldControl Label="FileDate" Value="@($"{this.SelectItem.FILE_DATE:yyyy-MM-dd HH:mm}")"></FieldControl>
+                <FieldControl Label="Version" Value="this.SelectItem.VERSION"></FieldControl>
             </div>
             <div class="row">
-                <FieldControl Label="Platform" CssClassDiv="py-2 col-md-6" Value="this.SelectItem.PLATFORM_DESC"></FieldControl>
-                <FieldControl Label="Owner" CssClassDiv="py-2 col-md-6" Value="this.SelectItem.NICKNAME"></FieldControl>
+                <FieldControl Label="Platform" Value="this.SelectItem.PLATFORM_DESC"></FieldControl>
+                <FieldControl Label="Owner" Value="this.SelectItem.NICKNAME"></FieldControl>
             </div>
 
             <DataGridControl TItem="AttributeModel" @ref="this.DataGridControlAttribute" DataItems="this.SelectItem.Attributes" PagingSize="5"
