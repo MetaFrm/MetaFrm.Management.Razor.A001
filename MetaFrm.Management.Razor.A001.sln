@@ -21,7 +21,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Models", "Models", "{291F57
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ViewModels", "ViewModels", "{D146177B-F631-4CE3-9840-BC8E36CFB8A3}"
 	ProjectSection(SolutionItems) = preProject
-		src\ViewModel\A001ViewModel.cs = src\ViewModel\A001ViewModel.cs
 		src\ViewModels\A001ViewModel.cs = src\ViewModels\A001ViewModel.cs
 	EndProjectSection
 EndProject
