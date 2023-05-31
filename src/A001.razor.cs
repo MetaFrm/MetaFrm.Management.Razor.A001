@@ -1,4 +1,5 @@
-﻿using MetaFrm.Database;
+﻿using MetaFrm.Config;
+using MetaFrm.Database;
 using MetaFrm.Extensions;
 using MetaFrm.Management.Razor.Models;
 using MetaFrm.Management.Razor.ViewModels;
@@ -35,12 +36,22 @@ namespace MetaFrm.Management.Razor
         /// <returns></returns>
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
+            object? obj;
+
             if (firstRender)
             {
                 if (!this.IsLogin())
                     this.Navigation?.NavigateTo("/", true);
 
                 this.A001ViewModel = await this.GetSession<A001ViewModel>(nameof(this.A001ViewModel));
+
+                obj = Client.GetAttribute("Search");
+
+                if (obj != null && obj is string tmp)
+                {
+                    this.A001ViewModel.SearchModel.SEARCH_TEXT = tmp;
+                    Client.RemoveAttribute("Search");
+                }
 
                 this.Search();
 
