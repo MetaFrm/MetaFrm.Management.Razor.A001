@@ -67,12 +67,12 @@ namespace MetaFrm.Management.Razor
 
                 this.A001ViewModel = await this.GetSession<A001ViewModel>(nameof(this.A001ViewModel));
 
-                obj = Client.GetAttribute("Search");
+                obj = Client.GetAttribute($"{this.GetAttribute("ASSEMBLY_ID")}.Search");
 
                 if (obj != null && obj is string tmp)
                 {
                     this.A001ViewModel.SearchModel.SEARCH_TEXT = tmp;
-                    Client.RemoveAttribute("Search");
+                    Client.RemoveAttribute($"{this.GetAttribute("ASSEMBLY_ID")}.Search");
                 }
 
                 this.Search();
