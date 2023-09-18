@@ -39,7 +39,7 @@ namespace MetaFrm.Management.Razor
         {
             try
             {
-                if (this.JSRuntime != null)
+                if (this.JSRuntime != null && this.DataGridControl != null)
                 {
                     System.Drawing.Size browserDimension = await this.JSRuntime.InvokeAsync<System.Drawing.Size>("getDimensions", null);
                     int? tmp = (browserDimension.Height - 210) / this.DataGridControl.HeaderHeight;
@@ -62,7 +62,7 @@ namespace MetaFrm.Management.Razor
 
             if (firstRender)
             {
-                if (!this.IsLogin())
+                if (!this.AuthState.IsLogin())
                     this.Navigation?.NavigateTo("/", true);
 
                 this.A001ViewModel = await this.GetSession<A001ViewModel>(nameof(this.A001ViewModel));
@@ -112,11 +112,11 @@ namespace MetaFrm.Management.Razor
 
                 ServiceData serviceData = new()
                 {
-                    Token = this.UserClaim("Token")
+                    Token = this.AuthState.Token()
                 };
                 serviceData["1"].CommandText = this.GetAttribute("Search");
                 serviceData["1"].AddParameter(nameof(this.A001ViewModel.SearchModel.SEARCH_TEXT), DbType.NVarChar, 4000, this.A001ViewModel.SearchModel.SEARCH_TEXT);
-                serviceData["1"].AddParameter("USER_ID", DbType.Int, 3, this.UserClaim("Account.USER_ID").ToInt());
+                serviceData["1"].AddParameter("USER_ID", DbType.Int, 3, this.AuthState.UserID());
                 serviceData["1"].AddParameter("PAGE_NO", DbType.Int, 3, this.DataGridControl != null ? this.DataGridControl.CurrentPageNumber : 1);
                 serviceData["1"].AddParameter("PAGE_SIZE", DbType.Int, 3, this.DataGridControl != null && this.DataGridControl.PagingEnabled ? this.DataGridControl.PagingSize : int.MaxValue);
 
@@ -164,7 +164,7 @@ namespace MetaFrm.Management.Razor
             finally
             {
                 this.A001ViewModel.IsBusy = false;
-                this.SetSession(nameof(A001ViewModel), this.A001ViewModel);
+                _ = this.SetSession(nameof(A001ViewModel), this.A001ViewModel);
             }
         }
         private void SearchAttribute()
@@ -180,11 +180,11 @@ namespace MetaFrm.Management.Razor
 
                 ServiceData serviceData = new()
                 {
-                    Token = this.UserClaim("Token")
+                    Token = this.AuthState.Token()
                 };
                 serviceData["1"].CommandText = this.GetAttribute("SearchAttribute");
                 serviceData["1"].AddParameter(nameof(this.SelectItem.ASSEMBLY_ID), DbType.Int, 3, this.SelectItem.ASSEMBLY_ID);
-                serviceData["1"].AddParameter("USER_ID", DbType.Int, 3, this.UserClaim("Account.USER_ID").ToInt());
+                serviceData["1"].AddParameter("USER_ID", DbType.Int, 3, this.AuthState.UserID());
                 serviceData["1"].AddParameter("PAGE_NO", DbType.Int, 3, 1);
                 serviceData["1"].AddParameter("PAGE_SIZE", DbType.Int, 3, int.MaxValue);
 
@@ -225,7 +225,7 @@ namespace MetaFrm.Management.Razor
             finally
             {
                 this.A001ViewModel.IsBusy = false;
-                this.SetSession(nameof(A001ViewModel), this.A001ViewModel);
+                _ = this.SetSession(nameof(A001ViewModel), this.A001ViewModel);
             }
         }
 
@@ -250,7 +250,7 @@ namespace MetaFrm.Management.Razor
                 ServiceData serviceData = new()
                 {
                     TransactionScope = true,
-                    Token = this.UserClaim("Token")
+                    Token = this.AuthState.Token()
                 };
                 serviceData["1"].CommandText = this.GetAttribute("Save");
                 serviceData["1"].AddParameter(nameof(this.SelectItem.ASSEMBLY_ID), DbType.Int, 3, "2", nameof(this.SelectItem.ASSEMBLY_ID), this.SelectItem.ASSEMBLY_ID);
@@ -294,7 +294,7 @@ namespace MetaFrm.Management.Razor
                     serviceData["1"].AddParameter(nameof(this.SelectItem.VERSION), DbType.NVarChar, 25, this.SelectItem.VERSION);
 
                 serviceData["1"].AddParameter(nameof(this.SelectItem.PLATFORM_ID), DbType.Int, 3, Factory.ProjectService.PlatformID);
-                serviceData["1"].AddParameter("USER_ID", DbType.Int, 3, this.UserClaim("Account.USER_ID").ToInt());
+                serviceData["1"].AddParameter("USER_ID", DbType.Int, 3, this.AuthState.UserID());
 
                 if (this.SelectItem.Attributes != null && this.SelectItem.Attributes.Count > 0)
                 {
@@ -312,7 +312,7 @@ namespace MetaFrm.Management.Razor
                         serviceData["2"].SetValue(nameof(AttributeModel.ASSEMBLY_ID), item.ASSEMBLY_ID);
                         serviceData["2"].SetValue(nameof(AttributeModel.ATTRIBUTE_NAME), item.ATTRIBUTE_NAME);
                         serviceData["2"].SetValue(nameof(AttributeModel.ATTRIBUTE_VALUE), item.ATTRIBUTE_VALUE);
-                        serviceData["2"].SetValue("USER_ID", this.UserClaim("Account.USER_ID").ToInt());
+                        serviceData["2"].SetValue("USER_ID", this.AuthState.UserID());
                     }
                 }
 
@@ -384,11 +384,11 @@ namespace MetaFrm.Management.Razor
                 ServiceData serviceData = new()
                 {
                     TransactionScope = true,
-                    Token = this.UserClaim("Token")
+                    Token = this.AuthState.Token()
                 };
                 serviceData["1"].CommandText = this.GetAttribute("Delete");
                 serviceData["1"].AddParameter(nameof(this.SelectItem.ASSEMBLY_ID), DbType.Int, 3, this.SelectItem.ASSEMBLY_ID);
-                serviceData["1"].AddParameter("USER_ID", DbType.Int, 3, this.UserClaim("Account.USER_ID").ToInt());
+                serviceData["1"].AddParameter("USER_ID", DbType.Int, 3, this.AuthState.UserID());
 
                 response = serviceData.ServiceRequest(serviceData);
 
@@ -445,11 +445,11 @@ namespace MetaFrm.Management.Razor
                 ServiceData serviceData = new()
                 {
                     TransactionScope = true,
-                    Token = this.UserClaim("Token")
+                    Token = this.AuthState.Token()
                 };
                 serviceData["1"].CommandText = this.GetAttribute("DeleteAttribute");
                 serviceData["1"].AddParameter(nameof(attributeModel.ATTRIBUTE_ID), DbType.Int, 3, attributeModel.ATTRIBUTE_ID);
-                serviceData["1"].AddParameter("USER_ID", DbType.Int, 3, this.UserClaim("Account.USER_ID").ToInt());
+                serviceData["1"].AddParameter("USER_ID", DbType.Int, 3, this.AuthState.UserID());
 
                 response = serviceData.ServiceRequest(serviceData);
 
