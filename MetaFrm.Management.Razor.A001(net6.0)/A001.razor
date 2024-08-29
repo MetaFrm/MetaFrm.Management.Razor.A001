@@ -20,7 +20,7 @@
                     new(DbType.NVarChar, SortDirection.Normal, Alignment.Center, nameof(AssemblyModel.PLATFORM_DESC), "플랫폼", "d-none d-lg-table-cell"),
                     new(DbType.NVarChar, SortDirection.Normal, Alignment.NotSet, nameof(AssemblyModel.NICKNAME), "소유자", "d-none d-sm-table-cell")})">
     <SearchInputControl>
-        <input type="text" class="form-control rounded-start" placeholder="검색" @bind-value="@this.A001ViewModel.SearchModel.SEARCH_TEXT" @onkeyup="@SearchKeydown" />
+        <input type="text" class="form-control rounded-start" placeholder="@Localization["검색"]" @bind-value="@this.A001ViewModel.SearchModel.SEARCH_TEXT" @onkeyup="@SearchKeydown" />
     </SearchInputControl>
     <SearchButtonControl>
         <button class="btn btn-outline-primary btn-rounded-end" type="submit" @onclick="(() => this.OnSearch())">
@@ -35,39 +35,43 @@
         <EditForm class="container" Model="@this.SelectItem" OnValidSubmit="this.Save">
             <DataAnnotationsValidator />
 
-            <FieldControl Label="ID" Value="this.SelectItem.ASSEMBLY_ID"></FieldControl>
-            <FieldControl Label="네임스페이스" CssClassAppend="py-2">
-                <Control>
-                    <InputText id="namespace" class="form-control" placeholder="네임스페이스" @bind-Value="this.SelectItem.NAMESPACE" />
-                    <ValidationMessage For="@(()=>this.SelectItem.NAMESPACE)" />
-                </Control>
-            </FieldControl>
-            <FieldControl Label="DLL" CssClassAppend="py-2">
-                <Control>
-                    <InputFile id="dll" class="form-control" placeholder="Namespace" accept=".dll" OnChange="@this.InputFileChangeEventArgs" />
-                </Control>
-            </FieldControl>
+            @if (this.SelectItem != null)
+            {
+                <FieldControl Label="ID" Value="this.SelectItem.ASSEMBLY_ID"></FieldControl>
+                <FieldControl Label="네임스페이스" CssClassAppend="py-2">
+                    <Control>
+                        <InputText id="namespace" class="form-control" placeholder="@Localization["네임스페이스"]" @bind-Value="this.SelectItem.NAMESPACE" />
+                        <ValidationMessage For="@(()=>this.SelectItem.NAMESPACE)" />
+                    </Control>
+                </FieldControl>
+                <FieldControl Label="DLL" CssClassAppend="py-2">
+                    <Control>
+                        <InputFile id="dll" class="form-control" placeholder="DLL" accept=".dll" OnChange="@this.InputFileChangeEventArgs" />
+                    </Control>
+                </FieldControl>
 
-            <div class="row">
-                <FieldControl Label="파일 날짜" Value="@($"{this.SelectItem.FILE_DATE:yyyy-MM-dd HH:mm}")"></FieldControl>
-                <FieldControl Label="버전" Value="this.SelectItem.VERSION"></FieldControl>
-            </div>
-            <div class="row">
-                <FieldControl Label="플랫폼" Value="this.SelectItem.PLATFORM_DESC"></FieldControl>
-                <FieldControl Label="소유자" Value="this.SelectItem.NICKNAME"></FieldControl>
-            </div>
+                <div class="row">
+                    <FieldControl Label="파일 날짜" Value="@($"{this.SelectItem.FILE_DATE:yyyy-MM-dd HH:mm}")"></FieldControl>
+                    <FieldControl Label="버전" Value="this.SelectItem.VERSION"></FieldControl>
+                </div>
+                <div class="row">
+                    <FieldControl Label="플랫폼" Value="this.SelectItem.PLATFORM_DESC"></FieldControl>
+                    <FieldControl Label="소유자" Value="this.SelectItem.NICKNAME"></FieldControl>
+                </div>
 
-            <DataGridControl TItem="AttributeModel" @ref="this.DataGridControlAttribute" DataItems="this.SelectItem.Attributes" PagingSize="5"
-                             RowAdd="this.AddAttribute"
-                             RowDelete="this.DeleteAttribute"
-                             DataBsToggle=""
-                             DataBsTarget=""
-                             Columns="@(new ColumnDefinitions[] {
-                                new(DbType.NVarChar, nameof(AttributeModel.ATTRIBUTE_NAME), "속성", true),
-                                new(DbType.NVarChar, nameof(AttributeModel.ATTRIBUTE_VALUE),"값", true)})">
-            </DataGridControl>
+                <DataGridControl TItem="AttributeModel" @ref="this.DataGridControlAttribute" DataItems="this.SelectItem.Attributes" PagingSize="5"
+                                 RowAdd="this.AddAttribute"
+                                 RowDelete="this.DeleteAttribute"
+                                 DataBsToggle=""
+                                 DataBsTarget=""
+                                 Columns="@(new ColumnDefinitions[] {
+                            new(DbType.NVarChar, nameof(AttributeModel.ATTRIBUTE_NAME), "속성", true),
+                            new(DbType.NVarChar, nameof(AttributeModel.ATTRIBUTE_VALUE),"값", true)})">
+                </DataGridControl>
 
-            <CommandControl TItem="AssemblyModel" SelectItem="this.SelectItem" SelectItemKeyProperty="@(nameof(this.SelectItem.ASSEMBLY_ID))" SaveIsSubmit="true" New="this.New" Copy="this.Copy" Delete="this.Delete" />
+                <CommandControl TItem="AssemblyModel" SelectItem="this.SelectItem" SelectItemKeyProperty="@(nameof(this.SelectItem.ASSEMBLY_ID))" SaveIsSubmit="true" New="this.New" Copy="this.Copy" Delete="this.Delete" />
+
+            }
         </EditForm>
     </Control>
 </ModalControl>
