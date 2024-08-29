@@ -17,13 +17,13 @@ namespace MetaFrm.Management.Razor.Models
         /// </summary>
         [Required]
         [MinLength(10)]
-        [Display(Name = "Namespace")]
+        [Display(Name = "네임스페이스")]
         public string? NAMESPACE { get; set; }
 
         /// <summary>
         /// DllFile
         /// </summary>
-        [Display(Name = "Dll File")]
+        [Display(Name = "DLL")]
         public Microsoft.AspNetCore.Components.Forms.IBrowserFile? DllFile { get; set; }
 
         /// <summary>
@@ -34,19 +34,19 @@ namespace MetaFrm.Management.Razor.Models
         /// <summary>
         /// VERSION
         /// </summary>
-        [Display(Name = "Version")]
+        [Display(Name = "버전")]
         public string? VERSION { get; set; }
 
         /// <summary>
         /// PLATFORM_ID
         /// </summary>
         [Required]
-        [Display(Name = "Platform")]
+        [Display(Name = "플랫폼")]
         public int? PLATFORM_ID { get; set; }
         /// <summary>
         /// PLATFORM_DESC
         /// </summary>
-        [Display(Name = "Platform")]
+        [Display(Name = "플랫폼")]
         public string? PLATFORM_DESC { get; set; }
 
         /// <summary>

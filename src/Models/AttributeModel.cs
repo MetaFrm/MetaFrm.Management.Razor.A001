@@ -22,14 +22,14 @@ namespace MetaFrm.Management.Razor.Models
         /// </summary>
         [Required]
         [MinLength(1)]
-        [Display(Name = "Attribute Name")]
+        [Display(Name = "속성")]
         public string? ATTRIBUTE_NAME { get; set; }
 
         /// <summary>
         /// ATTRIBUTE_VALUE
         /// </summary>
         [Required]
-        [Display(Name = "Attribute Value")]
+        [Display(Name = "값")]
         public string? ATTRIBUTE_VALUE { get; set; }
     }
 }
