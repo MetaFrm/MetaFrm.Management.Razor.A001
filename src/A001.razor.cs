@@ -131,13 +131,13 @@ namespace MetaFrm.Management.Razor
                 {
                     if (response.Message != null)
                     {
-                        this.ModalShow("Warning", response.Message, new() { { "Ok", Btn.Warning } }, null);
+                        this.ModalShow("경고", response.Message, new() { { "확인", Btn.Warning } }, null);
                     }
                 }
             }
             catch (Exception e)
             {
-                this.ModalShow("An Exception has occurred.", e.Message, new() { { "Ok", Btn.Danger } }, null);
+                this.ModalShow("예외가 발생했습니다.", e.Message, new() { { "확인", Btn.Danger } }, null);
             }
             finally
             {
@@ -192,13 +192,13 @@ namespace MetaFrm.Management.Razor
                 {
                     if (response.Message != null)
                     {
-                        this.ModalShow("Warning", response.Message, new() { { "Ok", Btn.Warning } }, null);
+                        this.ModalShow("경고", response.Message, new() { { "확인", Btn.Warning } }, null);
                     }
                 }
             }
             catch (Exception e)
             {
-                this.ModalShow("An Exception has occurred.", e.Message, new() { { "Ok", Btn.Danger } }, null);
+                this.ModalShow("예외가 발생했습니다.", e.Message, new() { { "확인", Btn.Danger } }, null);
             }
             finally
             {
@@ -306,19 +306,19 @@ namespace MetaFrm.Management.Razor
                             this.SelectItem.ASSEMBLY_ID = value.ToInt();
                     }
 
-                    this.ToastShow("Completed", $"{this.GetAttribute("Title")} registered successfully.", Alert.ToastDuration.Long);
+                    this.ToastShow("완료", this.Localization["{0}이(가) 등록되었습니다.", this.GetAttribute("Title")], Alert.ToastDuration.Long);
                 }
                 else
                 {
                     if (response.Message != null)
                     {
-                        this.ModalShow("Warning", response.Message, new() { { "Ok", Btn.Warning } }, null);
+                        this.ModalShow("경고", response.Message, new() { { "확인", Btn.Warning } }, null);
                     }
                 }
             }
             catch (Exception e)
             {
-                this.ModalShow("An Exception has occurred.", e.Message, new() { { "Ok", Btn.Danger } }, null);
+                this.ModalShow("예외가 발생했습니다.", e.Message, new() { { "확인", Btn.Danger } }, null);
             }
             finally
             {
@@ -335,7 +335,7 @@ namespace MetaFrm.Management.Razor
 
         private void Delete()
         {
-            this.ModalShow($"Question", "Do you want to delete?", new() { { "Delete", Btn.Danger }, { "Cancel", Btn.Primary } }, EventCallback.Factory.Create<string>(this, DeleteAction));
+            this.ModalShow("삭제", "삭제하시겠습니까?", new() { { "삭제", Btn.Danger }, { "취소", Btn.Primary } }, EventCallback.Factory.Create<string>(this, DeleteAction));
         }
         private void DeleteAction(string action)
         {
@@ -345,7 +345,7 @@ namespace MetaFrm.Management.Razor
 
             try
             {
-                if (action != "Delete") return;
+                if (action != "삭제") return;
 
                 if (this.A001ViewModel.IsBusy) return;
 
@@ -355,7 +355,7 @@ namespace MetaFrm.Management.Razor
 
                 if (this.SelectItem.ASSEMBLY_ID == null || this.SelectItem.ASSEMBLY_ID <= 0)
                 {
-                    this.ToastShow("Warning", $"Please select an {this.GetAttribute("Title")} to delete.", Alert.ToastDuration.Long);
+                    this.ToastShow("경고", this.Localization["삭제할 {0}을(를) 선택하세요.", this.GetAttribute("Title")], Alert.ToastDuration.Long);
                     return;
                 }
 
@@ -373,19 +373,19 @@ namespace MetaFrm.Management.Razor
                 if (response.Status == Status.OK)
                 {
                     this.New();
-                    this.ToastShow("Completed", $"{this.GetAttribute("Title")} deleted successfully.", Alert.ToastDuration.Long);
+                    this.ToastShow("완료", this.Localization["{0}이(가) 삭제되었습니다.", this.GetAttribute("Title")], Alert.ToastDuration.Long);
                 }
                 else
                 {
                     if (response.Message != null)
                     {
-                        this.ModalShow("Warning", response.Message, new() { { "Ok", Btn.Warning } }, null);
+                        this.ModalShow("경고", response.Message, new() { { "확인", Btn.Warning } }, null);
                     }
                 }
             }
             catch (Exception e)
             {
-                this.ModalShow("An Exception has occurred.", e.Message, new() { { "Ok", Btn.Danger } }, null);
+                this.ModalShow("예외가 발생했습니다.", e.Message, new() { { "확인", Btn.Danger } }, null);
             }
             finally
             {
@@ -416,7 +416,7 @@ namespace MetaFrm.Management.Razor
                 if (attributeModel.ATTRIBUTE_ID == null || attributeModel.ATTRIBUTE_ID <= 0)
                 {
                     this.SelectItem.Attributes.Remove(attributeModel);
-                    this.ToastShow("Completed", "Attribute deleted successfully.", Alert.ToastDuration.Long);
+                    this.ToastShow("완료", this.Localization["{0}이(가) 삭제되었습니다.", "속성"], Alert.ToastDuration.Long);
                     return;
                 }
 
@@ -434,19 +434,19 @@ namespace MetaFrm.Management.Razor
                 if (response.Status == Status.OK)
                 {
                     this.SelectItem.Attributes.Remove(attributeModel);
-                    this.ToastShow("Completed", "Attribute deleted successfully.", Alert.ToastDuration.Long);
+                    this.ToastShow("완료", this.Localization["{0}이(가) 삭제되었습니다.", "속성"], Alert.ToastDuration.Long);
                 }
                 else
                 {
                     if (response.Message != null)
                     {
-                        this.ModalShow("Warning", response.Message, new() { { "Ok", Btn.Warning } }, null);
+                        this.ModalShow("경고", response.Message, new() { { "확인", Btn.Warning } }, null);
                     }
                 }
             }
             catch (Exception e)
             {
-                this.ModalShow("An Exception has occurred.", e.Message, new() { { "Ok", Btn.Danger } }, null);
+                this.ModalShow("예외가 발생했습니다.", e.Message, new() { { "확인", Btn.Danger } }, null);
             }
             finally
             {

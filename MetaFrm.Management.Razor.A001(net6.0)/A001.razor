@@ -13,14 +13,14 @@
                  MovePage="this.Search"
                  RowModify="this.RowModify"
                  Columns="@(new ColumnDefinitions[] {
-                    new(DbType.Int, SortDirection.Normal, Alignment.Right, nameof(AssemblyModel.ASSEMBLY_ID), "Assembly ID"         , "d-none d-lg-table-cell"),
-                    new(DbType.NVarChar, SortDirection.Ascending, Alignment.NotSet, nameof(AssemblyModel.NAMESPACE), "Namespace"),
-                    new(DbType.DateTime, SortDirection.Normal, Alignment.Center, nameof(AssemblyModel.FILE_DATE), "File Date"       , "d-none d-md-table-cell", "", "", "yyyy-MM-dd HH:mm"),
-                    new(DbType.NVarChar, SortDirection.Normal, Alignment.Center, nameof(AssemblyModel.VERSION), "Version"),
-                    new(DbType.NVarChar, SortDirection.Normal, Alignment.Center, nameof(AssemblyModel.PLATFORM_DESC), "Platform"    , "d-none d-lg-table-cell"),
-                    new(DbType.NVarChar, SortDirection.Normal, Alignment.NotSet, nameof(AssemblyModel.NICKNAME), "Owner"            , "d-none d-sm-table-cell")})">
+                    new(DbType.Int, SortDirection.Normal, Alignment.Right, nameof(AssemblyModel.ASSEMBLY_ID), "ID", "d-none d-lg-table-cell"),
+                    new(DbType.NVarChar, SortDirection.Ascending, Alignment.NotSet, nameof(AssemblyModel.NAMESPACE), "네임스페이스"),
+                    new(DbType.DateTime, SortDirection.Normal, Alignment.Center, nameof(AssemblyModel.FILE_DATE), "파일 날짜", "d-none d-md-table-cell", "", "", "yyyy-MM-dd HH:mm"),
+                    new(DbType.NVarChar, SortDirection.Normal, Alignment.Center, nameof(AssemblyModel.VERSION), "버전"),
+                    new(DbType.NVarChar, SortDirection.Normal, Alignment.Center, nameof(AssemblyModel.PLATFORM_DESC), "플랫폼", "d-none d-lg-table-cell"),
+                    new(DbType.NVarChar, SortDirection.Normal, Alignment.NotSet, nameof(AssemblyModel.NICKNAME), "소유자", "d-none d-sm-table-cell")})">
     <SearchInputControl>
-        <input type="text" class="form-control rounded-start" placeholder="Search" @bind-value="@this.A001ViewModel.SearchModel.SEARCH_TEXT" @onkeyup="@SearchKeydown" />
+        <input type="text" class="form-control rounded-start" placeholder="검색" @bind-value="@this.A001ViewModel.SearchModel.SEARCH_TEXT" @onkeyup="@SearchKeydown" />
     </SearchInputControl>
     <SearchButtonControl>
         <button class="btn btn-outline-primary btn-rounded-end" type="submit" @onclick="(() => this.OnSearch())">
@@ -30,15 +30,15 @@
 </DataGridControl>
 
 <ModalControl TItem="AssemblyModel" SelectItem="this.SelectItem" SelectItemKeyProperty="@(nameof(this.SelectItem.ASSEMBLY_ID))"
-              HeaderText="@(this.SelectItem == null || this.SelectItem.ASSEMBLY_ID == null ? "New" : "Edit")">
+              HeaderText="@(this.SelectItem == null || this.SelectItem.ASSEMBLY_ID == null ? "신규" : "수정")">
     <Control>
         <EditForm class="container" Model="@this.SelectItem" OnValidSubmit="this.Save">
             <DataAnnotationsValidator />
 
-            <FieldControl Label="Assembly ID" Value="this.SelectItem.ASSEMBLY_ID"></FieldControl>
-            <FieldControl Label="Namespace" CssClassAppend="py-2">
+            <FieldControl Label="ID" Value="this.SelectItem.ASSEMBLY_ID"></FieldControl>
+            <FieldControl Label="네임스페이스" CssClassAppend="py-2">
                 <Control>
-                    <InputText id="namespace" class="form-control" placeholder="Namespace" @bind-Value="this.SelectItem.NAMESPACE" />
+                    <InputText id="namespace" class="form-control" placeholder="네임스페이스" @bind-Value="this.SelectItem.NAMESPACE" />
                     <ValidationMessage For="@(()=>this.SelectItem.NAMESPACE)" />
                 </Control>
             </FieldControl>
@@ -49,12 +49,12 @@
             </FieldControl>
 
             <div class="row">
-                <FieldControl Label="FileDate" Value="@($"{this.SelectItem.FILE_DATE:yyyy-MM-dd HH:mm}")"></FieldControl>
-                <FieldControl Label="Version" Value="this.SelectItem.VERSION"></FieldControl>
+                <FieldControl Label="파일 날짜" Value="@($"{this.SelectItem.FILE_DATE:yyyy-MM-dd HH:mm}")"></FieldControl>
+                <FieldControl Label="버전" Value="this.SelectItem.VERSION"></FieldControl>
             </div>
             <div class="row">
-                <FieldControl Label="Platform" Value="this.SelectItem.PLATFORM_DESC"></FieldControl>
-                <FieldControl Label="Owner" Value="this.SelectItem.NICKNAME"></FieldControl>
+                <FieldControl Label="플랫폼" Value="this.SelectItem.PLATFORM_DESC"></FieldControl>
+                <FieldControl Label="소유자" Value="this.SelectItem.NICKNAME"></FieldControl>
             </div>
 
             <DataGridControl TItem="AttributeModel" @ref="this.DataGridControlAttribute" DataItems="this.SelectItem.Attributes" PagingSize="5"
@@ -63,8 +63,8 @@
                              DataBsToggle=""
                              DataBsTarget=""
                              Columns="@(new ColumnDefinitions[] {
-                                new(DbType.NVarChar, nameof(AttributeModel.ATTRIBUTE_NAME), "Attr Name", true),
-                                new(DbType.NVarChar, nameof(AttributeModel.ATTRIBUTE_VALUE),"Attr Value", true)})">
+                                new(DbType.NVarChar, nameof(AttributeModel.ATTRIBUTE_NAME), "속성", true),
+                                new(DbType.NVarChar, nameof(AttributeModel.ATTRIBUTE_VALUE),"값", true)})">
             </DataGridControl>
 
             <CommandControl TItem="AssemblyModel" SelectItem="this.SelectItem" SelectItemKeyProperty="@(nameof(this.SelectItem.ASSEMBLY_ID))" SaveIsSubmit="true" New="this.New" Copy="this.Copy" Delete="this.Delete" />
