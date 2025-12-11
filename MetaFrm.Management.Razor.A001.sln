@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.4.32804.182
+# Visual Studio Version 18
+VisualStudioVersion = 18.1.11304.174 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "솔루션 항목", "솔루션 항목", "{DE34CA0F-04A0-461C-BEA3-1F4B8E16DE6D}"
 	ProjectSection(SolutionItems) = preProject
@@ -9,8 +9,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "솔루션 항목", "솔루�
 		LICENSE.txt = LICENSE.txt
 		README.md = README.md
 	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetaFrm.Management.Razor.A001(net6.0)", "MetaFrm.Management.Razor.A001(net6.0)\MetaFrm.Management.Razor.A001(net6.0).csproj", "{EF286AA8-8CC5-4F98-8A50-24593BFE61DC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Models", "Models", "{291F5773-FAAB-4F47-AC52-60705F0831F3}"
 	ProjectSection(SolutionItems) = preProject
@@ -36,16 +34,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 		.github\workflows\build.yml = .github\workflows\build.yml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaFrm.Management.Razor.A001(net10.0)", "MetaFrm.Management.Razor.A001(net10.0)\MetaFrm.Management.Razor.A001(net10.0).csproj", "{61977435-A9BE-E9C4-7C0C-ADC4521E3650}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EF286AA8-8CC5-4F98-8A50-24593BFE61DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EF286AA8-8CC5-4F98-8A50-24593BFE61DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EF286AA8-8CC5-4F98-8A50-24593BFE61DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EF286AA8-8CC5-4F98-8A50-24593BFE61DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61977435-A9BE-E9C4-7C0C-ADC4521E3650}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61977435-A9BE-E9C4-7C0C-ADC4521E3650}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61977435-A9BE-E9C4-7C0C-ADC4521E3650}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61977435-A9BE-E9C4-7C0C-ADC4521E3650}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
