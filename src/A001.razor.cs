@@ -116,8 +116,6 @@ namespace MetaFrm.Management.Razor
                                 NAMESPACE = datarow.String(nameof(AssemblyModel.NAMESPACE)),
                                 FILE_DATE = datarow.DateTime(nameof(AssemblyModel.FILE_DATE)),
                                 VERSION = datarow.String(nameof(AssemblyModel.VERSION)),
-                                PLATFORM_ID = datarow.Int(nameof(AssemblyModel.PLATFORM_ID)),
-                                PLATFORM_DESC = datarow.String(nameof(AssemblyModel.PLATFORM_DESC)),
                                 NICKNAME = datarow.String(nameof(AssemblyModel.NICKNAME)),
                             });
                         }
@@ -271,7 +269,6 @@ namespace MetaFrm.Management.Razor
                 else
                     serviceData["1"].AddParameter(nameof(this.SelectItem.VERSION), DbType.NVarChar, 25, this.SelectItem.VERSION);
 
-                serviceData["1"].AddParameter(nameof(this.SelectItem.PLATFORM_ID), DbType.Int, 3, Factory.ProjectService.PlatformID);
                 serviceData["1"].AddParameter("USER_ID", DbType.Int, 3, this.AuthState.UserID());
 
                 if (this.SelectItem.Attributes != null && this.SelectItem.Attributes.Count > 0)
@@ -479,8 +476,6 @@ namespace MetaFrm.Management.Razor
                 NAMESPACE = item.NAMESPACE,
                 FILE_DATE = item.FILE_DATE,
                 VERSION = item.VERSION,
-                PLATFORM_ID = item.PLATFORM_ID,
-                PLATFORM_DESC = item.PLATFORM_DESC,
                 NICKNAME = item.NICKNAME,
             };
 

@@ -38,18 +38,6 @@ namespace MetaFrm.Management.Razor.Models
         public string? VERSION { get; set; }
 
         /// <summary>
-        /// PLATFORM_ID
-        /// </summary>
-        [Required]
-        [Display(Name = "플랫폼")]
-        public int? PLATFORM_ID { get; set; }
-        /// <summary>
-        /// PLATFORM_DESC
-        /// </summary>
-        [Display(Name = "플랫폼")]
-        public string? PLATFORM_DESC { get; set; }
-
-        /// <summary>
         /// NICKNAME
         /// </summary>
         public string? NICKNAME { get; set; }
